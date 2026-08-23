@@ -1,0 +1,17 @@
+# Text files normalise to LF in the repository, native on checkout.
+*.html   text eol=lf
+*.css    text eol=lf
+*.md     text eol=lf
+*.txt    text eol=lf
+LICENSE  text eol=lf
+
+# PowerShell stays CRLF - some Windows hosts are fussy about it.
+*.ps1    text eol=crlf
+*.bat    text eol=crlf
+
+# Never let git touch image bytes.
+*.jpg    binary
+*.jpeg   binary
+*.png    binary
+*.gif    binary
+*.webp   binary

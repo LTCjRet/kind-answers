@@ -1,0 +1,4 @@
+# Kind Answers - compiled for family and fellow researchers.
+# Please do not index. See index.html#distribution and LICENSE section 4.
+User-agent: *
+Disallow: /

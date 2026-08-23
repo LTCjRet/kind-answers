@@ -1,0 +1,29 @@
+# Research material must never reach this repository.
+*.csv
+*.xlsx
+*.xls
+*.docx
+*.doc
+*.pdf
+*RECORDS-LOG*
+*RESEARCH-LOG*
+*EVIDENCE-LEDGER*
+*NEGATIVE-SEARCHES*
+*CORRESPONDENCE*
+*dossier*
+_RETROFIT/
+07_INBOX/
+
+# Junk
+Thumbs.db
+desktop.ini
+.DS_Store
+*.bak
+*.tmp
+*~
+
+# Local-only forbidden-string list for Check-Site.ps1 - MUST NOT be committed
+.check-secrets.txt
+
+# Living-person clearance list - stays local
+CLEARANCE-living-persons.md
