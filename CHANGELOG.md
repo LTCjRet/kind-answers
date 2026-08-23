@@ -148,3 +148,62 @@ only in the companion *Three Sergeants* site.
   portrait, the words "Soldiers of the Great War", or the `sotgw` image before the
   October chapter.
 - Both this account and *Three Sergeants* will be maintained in parallel.
+
+---
+
+## Revision 3 — 23 August 2026
+
+Corrections and additions on the author's review of Revision 2.
+
+**Corrections**
+
+- **The 80th Division's markings were painted on steel helmets.** Revision 2 described
+  them as general unit markings and illustrated them with a schematic. The chapter now
+  opens with the First Sergeant's chevrons David Bryant wore from 10 April 1918, and
+  shows a **surviving M1917 helmet of the 1st Battalion, 317th Infantry** with the red
+  diamond still on it. The scheme chart moved to Reference.
+- **The sentence describing Walter's death was incoherent.** It called him "the first
+  of the three to go" and then dated his death twenty-seven years after Alexander's. He
+  was the **second of the three brothers to die** — and of the three men here who came
+  through the war alive, Walter, Kokos and David, he **died youngest**, at fifty-seven
+  against sixty-five and seventy-nine.
+
+**The October chapter reframed**
+
+The 7 October attack now appears as what it was. On 2 October about 550 men of the 77th
+Division were cut off near Charlevaux Mill. **The 28th and 82nd Divisions were ordered
+to reorient east**, across the Aire and into the flank and rear of the German force
+holding the Argonne, to make the encirclement untenable. The pocket was relieved on the
+**evening of 7 October** — the day Alexander Bryant was killed, in the attack that
+freed it.
+
+Far more Americans were killed or wounded getting them out than were ever trapped
+inside, and the account says plainly that nobody begrudges those losses, because the men
+taking them were keeping the faith every American soldier understands. York and the
+Lost Battalion remain flagged as adjacency, not connection.
+
+**Completeness**
+
+A term-by-term audit against the companion *Three Sergeants* account now returns
+**nothing missing**. Added in this revision: Lieutenants Hooper and Bullock and First
+Sergeant John M. Graham, with both Company L command lists; the *Kriemhilde Stellung*;
+Base Hospital 86 holding 2,340 patients under marquee tents; the 1,462 gas deaths;
+George Kokos of Natrona Heights as the strongest remaining lead to that family; Jennings
+C. Wise's *The Great Crusade*, the one cited source nobody here has read; the
+*Mongolia*'s gun at Gosport Park; and repository attributions throughout Sources.
+
+**A note on the author**
+
+Added to the Sources page: the author retired as a **Lieutenant Colonel, Georgia State
+Department of Defense**, trained as an **infantry officer**, and completed his advanced
+officer course — **Amphibious Warfare School, Marine Corps University** — in **1995**.
+It sits at the back rather than the front because the account opens with a boy of twelve
+who knew none of it.
+
+**Spoiler discipline**
+
+`Check-Spoilers.ps1` caught a leak I introduced while writing this revision: the
+Apremont chapter stated that Bullock took the company "the day Alexander Bryant was
+killed." Rewritten to say only that something happened to Company L on 7 October and
+that it is the next chapter. Two Bullock date references are now documented exceptions
+in the script, with a note not to widen them.

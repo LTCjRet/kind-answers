@@ -51,7 +51,20 @@ $patterns = @(
 )
 
 # Known and accepted: generic statements about officers as a class.
-$allowed = @('were killed accordingly')
+# Known-good phrases that trip the broad patterns above. Each is here because
+# it was checked by hand and is not a disclosure.
+$allowed = @(
+    'were killed accordingly',          # officers as a class, not Alexander
+    'hundred and eighty miles',         # Caldwell County to Chase City - correct
+    'Bullock takes it on 7 October',    # a command date, deliberately unexplained
+    'Bullock 7 October 1918'            # same date in the command table
+)
+
+# NOTE on the two Bullock exceptions: the Apremont chapter shows that Company L
+# changed commander on 7 October 1918 and says openly that something happened
+# that day, without saying what. That is the intended tension, not a disclosure -
+# the reader is told to turn the page. Both were checked by hand. Do not widen
+# these into a blanket allowance for the date itself.
 
 Write-Host ""
 Write-Host "Kind Answers - spoiler discipline check" -ForegroundColor White
