@@ -60,6 +60,17 @@ Say "  remote: $remote"
 
 $branch = "$(git rev-parse --abbrev-ref HEAD | Select-Object -First 1)".Trim()
 Say "  branch: $branch"
+
+# Does the branch exist on the remote yet? This matters more than it looks.
+# "origin/main..main" against a remote branch that does not exist counts ZERO,
+# so without this check a first publication reports "nothing to publish" and
+# silently does nothing.
+$remoteHasBranch = $false
+$lsr = "$(git ls-remote --heads origin $branch 2>$null | Select-Object -First 1)".Trim()
+if ($lsr) { $remoteHasBranch = $true }
+if (-not $remoteHasBranch) {
+    Say "  remote branch '$branch' does not exist yet - this is a FIRST PUBLICATION" 'Yellow'
+}
 if ($branch -ne 'main') {
     Say ""
     Say "  You are on '$branch', not 'main'. GitHub Pages publishes from main." 'Yellow'
@@ -84,17 +95,53 @@ Say ""
 Say "Changes to be published:" 'Cyan'
 $status = git status --porcelain
 if (-not $status) {
-    Say "  Working tree is clean - nothing to publish." 'Yellow'
+    Say "  Working tree is clean - no uncommitted changes." 'Yellow'
+
+    if (-not $remoteHasBranch) {
+        # First publication: every local commit is unpublished by definition.
+        $totalRaw = (git rev-list --count HEAD 2>$null | Select-Object -First 1)
+        $total = 0
+        [void][int]::TryParse(("$totalRaw").Trim(), [ref]$total)
+        if ($total -lt 1) { Say "  No commits to publish." 'Yellow'; exit 0 }
+        Say ""
+        Say "  FIRST PUBLICATION - $total commit(s) to push to a repository that is" 'Cyan'
+        Say "  currently empty. This will make the site public." 'Cyan'
+        git log --oneline | ForEach-Object { Say "    $_" 'DarkGray' }
+        if ($DryRun) { Say "  [dry run] would run: git push -u origin $branch" 'DarkGray'; exit 0 }
+        Say ""
+        if (-not $Force) {
+            if ((Read-Host "  Publish to a PUBLIC repository? (yes/no)") -ne 'yes') {
+                Say "  Stopped. Nothing pushed." 'Yellow'; exit 1
+            }
+        }
+        git push -u origin $branch
+        if ($LASTEXITCODE -ne 0) {
+            Say ""
+            Say "  Push failed. Your commits are safe locally - nothing is lost." 'Red'
+            Say "  If this says 'Repository not found', the repository has not been" 'Yellow'
+            Say "  created on github.com yet. Create it EMPTY - no README, no" 'Yellow'
+            Say "  .gitignore, no licence - then run this again." 'Yellow'
+            exit 1
+        }
+        Say ""
+        Say "Published." 'Green'
+        Say "  https://ltcjret.github.io/kind-answers/" 'Green'
+        Say "  Now enable Pages: Settings -> Pages -> main -> / (root)" 'Yellow'
+        exit 0
+    }
+
     $aheadRaw = (git rev-list --count "origin/$branch..$branch" 2>$null | Select-Object -First 1)
     $ahead = 0
     [void][int]::TryParse(("$aheadRaw").Trim(), [ref]$ahead)
     if ($ahead -gt 0) {
-        Say "  But $ahead local commit(s) have not been pushed." 'Yellow'
+        Say "  $ahead local commit(s) have not been pushed." 'Yellow'
         if ($DryRun) { Say "  [dry run] would push them." 'DarkGray'; exit 0 }
         if ($Force -or (Read-Host "  Push them now? (yes/no)") -eq 'yes') {
             git push origin $branch
             Say "  Pushed." 'Green'
         }
+    } else {
+        Say "  Nothing to publish - remote is up to date." 'Yellow'
     }
     exit 0
 }
@@ -146,7 +193,7 @@ git add -A
 git commit -m $Message
 if ($LASTEXITCODE -ne 0) { Say "Commit failed. Nothing pushed." 'Red'; exit 1 }
 
-git push origin $branch
+if ($remoteHasBranch) { git push origin $branch } else { git push -u origin $branch }
 if ($LASTEXITCODE -ne 0) {
     Say ""
     Say "Push failed. The commit is saved locally - nothing is lost." 'Red'

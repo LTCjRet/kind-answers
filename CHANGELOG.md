@@ -85,3 +85,66 @@ Battalion on 4 October.
   of her own testimony.
 - Family spelling **"Ma Mae"** confirmed for Virginia Mae Bryant. Jodie's verbatim
   quotation preserves her own spelling, "Ma mae", because it is a quotation. — presentation, licensing or structure, not bearing on the evidence.
+
+---
+
+## Revision 2 — 23 August 2026
+
+Substantial revision on the author's corrections. The account is now intended to
+stand alone: it carries the military narrative, citations and documents previously
+only in the companion *Three Sergeants* site.
+
+**Corrections — errors in Revision 1**
+
+- **"Eighty miles apart" → about eight.** The brothers were roughly eight miles apart
+  on a front some twenty miles wide. The figure was wrong in three places.
+- **"Neither knew the other was in France" → the knowing ran one way.** Alexander,
+  crossing six weeks later, would have had a fair idea his brother was with the 80th
+  Division on the Meuse side. David is unlikely to have known of Alexander's
+  assignment to Company L, made eleven days before the offensive opened.
+- **Platoons were commanded by a lieutenant and run by the sergeant.** The diagram and
+  text placed sergeants in command. The sergeant took the platoon when the lieutenant
+  was hit — expected, not exceptional.
+- **"A field with a cross in it" → a marker carrying his identification tag.** No
+  record here describes what the first marker was. The Argonne American Cemetery
+  almost certainly gave him a cross; the field grave is simply undescribed.
+- **The Walter counterfactual is withdrawn.** Revision 1 said that had his exemption
+  been refused, "none of the rest of us would be here." He already had a wife and two
+  children in June 1917. What would have happened is unknown, and the account now says
+  so.
+- **Generation error corrected.** The author's mother was Walter's *granddaughter*,
+  not great-granddaughter. Revision 1 contradicted itself on this within one file.
+  The line is Walter → Virginia Mae ("Ma Mae") → the author's mother → the author.
+- **"First Sergeant" capitalised** wherever it is the title of the post.
+
+**New chapters**
+
+- **6 · Apremont and Pleinchamp Farm** — 29 September to 6 October 1918. Kokos's
+  citation in full; the officer attrition that left a sergeant commanding the company;
+  and the regiment's own admission that no official note was made of such changes.
+- **10 · William Kokos** — his later life, moved out of the after-lives chapter into
+  its own room, with its own distribution notice.
+- **12 · Reference** — the documents, maps and insignia gathered in one place.
+
+**Added to existing chapters**
+
+- **Sergeant Manley Bradley's DSC** (`REGH-0004` p.90). Same company as David Bryant,
+  serial 36 numbers away, wounded in the head near Nantillois within a day of him. One
+  received the Distinguished Service Cross; the other's decorations field is blank.
+- **Alexander's portrait**, from *Soldiers of the Great War* (1920) — **held until the
+  October chapter**, because the volume is a roll of the dead and naming it earlier
+  would end the withholding. The AI reconstruction appears beside it, labelled as not
+  evidence.
+- **York and the Lost Battalion**, with the explicit *adjacency, not connection*
+  warning carried over from the companion account.
+- Twenty-nine document images restored: the questionnaire, the war record, the 317th's
+  history pages, the Kokos records, the divisional maps and the insignia plates.
+
+**Editorial**
+
+- Pages renumbered to accommodate the three new chapters. Published URLs changed;
+  `404.html` lists the new sequence.
+- `Check-Spoilers.ps1` extended: it now also fails on any appearance of Alexander's
+  portrait, the words "Soldiers of the Great War", or the `sotgw` image before the
+  October chapter.
+- Both this account and *Three Sergeants* will be maintained in parallel.

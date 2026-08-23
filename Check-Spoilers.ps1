@@ -32,7 +32,8 @@ if (-not $Root -or -not (Test-Path -LiteralPath $Root)) {
 
 # Pages the reader sees BEFORE the October chapter.
 $before = @('index.html','1-chase-city.html','2-june-1917.html','3-crossings.html',
-            '4-sergeants-job.html','5-two-companies.html','company-organization.html')
+            '4-sergeants-job.html','5-two-companies.html','6-apremont.html',
+            'company-organization.html')
 
 # Things that would give it away. Deliberately broad - false positives are
 # cheap, a spoiled reveal is not.
@@ -44,6 +45,9 @@ $patterns = @(
     @{ P = '\bfuneral\b|\bmourn|\bwidow';              W = 'mourning language' }
     @{ P = 'graves registration';                      W = 'Graves Registration' }
     @{ P = '1895\s*[-\u2013]\s*1918|1918\s*\)';       W = 'a closing date for Alexander' }
+    @{ P = 'portrait-alexander';                       W = 'a portrait of Alexander (held until the reveal)' }
+    @{ P = 'Soldiers of the Great War';                W = 'the memorial volume title' }
+    @{ P = 'sotgw';                                    W = 'the memorial volume image' }
 )
 
 # Known and accepted: generic statements about officers as a class.
@@ -80,7 +84,7 @@ foreach ($f in $before) {
 
 Write-Host ""
 if ($leaks -gt 0) {
-    Write-Host "FAILED - $leaks leak(s). The reveal is spoiled before 6-october.html." -ForegroundColor Red
+    Write-Host "FAILED - $leaks leak(s). The reveal is spoiled before 7-october.html." -ForegroundColor Red
     exit 1
 }
 Write-Host "PASSED - the outcome is not disclosed before the October chapter." -ForegroundColor Green
