@@ -61,6 +61,20 @@ company-organization.html  Reference chart: the AEF rifle company
 assets/                  47 images
 ```
 
+## Editing by hand
+
+See **[EDITING-GUIDE.md](EDITING-GUIDE.md)** for the full workflow. The short version:
+
+```
+Checkpoint.bat "what you changed"   # local restore point after each page, never pushes
+Review.bat                          # writes REVIEW.txt - what a reader would see change
+Check.bat / Check-Spoilers.bat      # verify
+Publish.bat "Rev 4: ..."            # go live
+```
+
+`REVIEW.txt` is what keeps the narrative and the evidence logs from drifting apart. Git
+records that a word changed; it cannot know that a claim in the ledger now disagrees.
+
 ## Publishing
 
 ```powershell
