@@ -207,3 +207,42 @@ Apremont chapter stated that Bullock took the company "the day Alexander Bryant 
 killed." Rewritten to say only that something happened to Company L on 7 October and
 that it is the next chapter. Two Bullock date references are now documented exceptions
 in the script, with a note not to widen them.
+
+---
+
+## Revision 4 — 24 August 2026
+
+**New source: the Company G diary** (`REGH-0005`)
+
+The published day-by-day diary of **Company G, 317th Infantry** — a *2nd Battalion*
+company of David Bryant's own regiment, and therefore a company in the battalion that
+became lost on 4 October 1918. It describes that morning from inside it.
+
+- **W-095** — the 2nd Battalion was **three kilometres** behind its start line at 5:05
+  a.m., having moved up in extreme darkness into ground vacated by the 4th Division.
+  First source from inside the lost battalion; first to give the distance.
+- **W-096** — **why the 1st Battalion attacked without artillery.** Craighill says the
+  barrage "didn't drop at the proper time"; the diary says it opened at 5:05 exactly as
+  ordered, onto the sector Company G had failed to reach. The guns were not late — the
+  infantry was in the wrong place. *Labelled as inference throughout: neither source
+  states it alone.*
+- **W-097** — **tear and mustard gas** named explicitly at the Bois des Ogons on the
+  evening of 4 October, and gas in the morning bombardment near Nantillois.
+- **W-098** — **a second Bryant in the 317th**: Neuman Bryant, Pvt. 1-Cl., a cook in
+  Company G, of Kieffer, West Virginia. No relation. Recorded because any index search
+  for "Bryant, 317th Infantry" returns him. Added to Sources as a caution.
+- **W-099** — Sgt. Jenkins of Company G awarded the **DSC** for 5 October: a third in
+  the regiment that week, beside Manley Bradley.
+
+**W-020, the gas, remains Tier 3 — deliberately.** The agent is now named, in the right
+place, on the right day, by his own regiment. But the question was never whether gas was
+present; it is whether it was on *him*. He was in a different battalion and his own 1922
+form records the gunshot alone. What has gone is the last reason to think the family
+story improbable.
+
+**Consistency between the two accounts**
+
+*Three Sergeants* still said the brothers "neither knew the other was there." That was
+corrected in *Kind Answers* on 23 August and is now corrected here too: the knowing ran
+one way. Both accounts are maintained in parallel, and a correction to one is a
+correction to both.
