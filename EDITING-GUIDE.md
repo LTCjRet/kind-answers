@@ -22,6 +22,32 @@ HTML** for syntax colouring.
 
 ---
 
+## Studio — the visual way to do all of this
+
+Double-click **`Studio.bat`** in `06_WRITING`. It starts a small server on your own
+machine and opens your browser at `http://127.0.0.1:8765`. Six stages across the top:
+
+| Stage | What it shows |
+|---|---|
+| **Status** | What has changed, what is live on GitHub, how many checkpoints are waiting |
+| **Pages** | Every page in reading order — preview it, or open it in Notepad++ |
+| **Review** | What a *reader* would see change, with dates and figures flagged |
+| **Evidence** | The ledger claims each page rests on, and which claims nothing cites |
+| **Verify** | Runs both check scripts, green or red |
+| **Checkpoint** | Saves a local restore point |
+
+**Studio cannot publish.** That is deliberate. The one irreversible act stays at the
+command line.
+
+It binds to `127.0.0.1` only, so nothing outside your machine can reach it. Stop it with
+the *Shut down* button, or Ctrl+C in the console window it opens.
+
+The command-line tools below all still work and do the same things. Use whichever suits
+the moment — Studio when you want to see the state of everything, the `.bat` files when
+you just want to checkpoint and carry on.
+
+---
+
 ## The loop
 
 ```
@@ -72,6 +98,24 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Review-Changes.ps1 -Since 
 **`git reset --hard` is not on that list deliberately.** It discards uncommitted work
 with no warning and no recovery. It destroyed several hours of work on this project once
 already. If you think you need it, checkpoint first.
+
+---
+
+## The `data-claims` tags
+
+Every page carries one invisible attribute on its `<header class="page">` element:
+
+```html
+<header class="page" data-claims="W-013,W-068,W-075,...">
+```
+
+Readers never see it. It is how Studio's **Evidence** stage knows which ledger claims a
+page rests on. If you split a chapter, or move a section to another page, move the
+relevant claim IDs with it — and if you are not sure which, leave it and say so in the
+review; that is exactly the kind of thing worth reconciling together.
+
+Studio flags any claim ID that is not in the ledger, and lists ledger claims that no page
+cites.
 
 ---
 
