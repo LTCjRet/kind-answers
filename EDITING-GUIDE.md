@@ -24,8 +24,9 @@ HTML** for syntax colouring.
 
 ## Studio — the visual way to do all of this
 
-Double-click **`Studio.bat`** in `06_WRITING`. It starts a small server on your own
-machine and opens your browser at `http://127.0.0.1:8765`. Six stages across the top:
+Double-click **`Studio.bat`**, which sits in the folder holding both site folders. It
+starts a small server on your own machine and opens your browser at
+`http://127.0.0.1:8765`. Six stages across the top:
 
 | Stage | What it shows |
 |---|---|
