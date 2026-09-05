@@ -246,3 +246,43 @@ story improbable.
 corrected in *Kind Answers* on 23 August and is now corrected here too: the knowing ran
 one way. Both accounts are maintained in parallel, and a correction to one is a
 correction to both.
+
+---
+
+## Revision 5 — 5 September 2026
+
+**The barrage question is settled, and there was never a contradiction.**
+
+A conflict was flagged on 5 September: the Company G diary said the barrage opened at
+**5:05**, a supplementary compilation said **05:25**. Three pages of the American Battle
+Monuments Commission's official history of the 80th Division (`REGH-0006`) dissolve it:
+
+> *"A standing barrage was to be placed on the area south of Bois des Ogons **from 5:05
+> to 5:25 a.m.**, following which the infantry attack was to commence."*
+
+5:05 was when it opened; 5:25 was when it lifted. Both sources were right, each
+describing one end of a twenty-minute programme. *(W-100)*
+
+**W-096 is promoted from inference to fact.** The account had been saying — carefully
+hedged as its own reasoning — that the guns were not late, the infantry was in the wrong
+place. The ABMC states it outright:
+
+> *"The 2d Battalion, 317th Infantry, which was to lead the assault on the right, became
+> lost while advancing to the line of departure. As a consequence, the 1st Battalion,
+> 317th Infantry, was ordered to make the attack… **Owing to this delay, the advance did
+> not start until about 6 a.m., thereby losing the effect of the barrage and the support
+> of the tanks.**"*
+
+The hedging has been removed from both accounts and replaced with the citation. *(W-101)*
+
+**Two official maps added, and they can be published**
+
+- **`MAPW-0004`** — ABMC folding map, **28th Division**, 19 Sep – 10 Oct 1918. Alexander's
+  division; the Aire valley and Châtel-Chéhéry, front line marked for each day.
+- **`MAPW-0005`** — ABMC folding map, **80th Division**, 30 Sep – 13 Oct 1918. David's
+  division; Nantillois, Hill 274 and the Bois des Ogons.
+
+Both are 1944 United States Government publications and therefore public domain — so
+unlike the Lengel plate they appear on the site itself rather than being held in the
+research files. They **supersede MAPW-0001 and MAPW-0002**, which have carried
+"provenance to confirm" since August; those rows are now marked accordingly.
