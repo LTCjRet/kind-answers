@@ -1,16 +1,9 @@
-/* Generated. Bounds, plat placement and grave positions for 14-the-ground.html.
-   GRS Plat A-122 fitted to the LiDAR on two features that survive on the
-   ground: the road fork SW of Ferme des Granges and the Y-junction 355 m
-   west where a track joins from the north-west.
-   Scale 9.4532 px/m, rotation -13.6436 deg from Lambert-93 grid north.
-   Chosen by fitting both roadbeds as lines: the plat draws the angle between
-   its N-S road and its WNW-ESE road as 63.95 deg where the ground has 74.05,
-   a 10.1 deg internal error, so no single transform can fit the whole sheet.
-   This fit follows the WNW-ESE roadbed the graves actually lie along.
-   Plat linework sits a median 10.9 m from real features (was 21.9 m for the
-   first fit, 15.6 m for the second). Cost: the junction NE of the fork lands
-   37 m out. Affine fits were tested and rejected - they needed 22% anisotropy
-   and scored worse overall. */
+/* Generated. Bounds, plat placement, graves, georeferenced overlays and reader sheets.
+   ABMC 28th Division sheet georeferenced from its own printed war grid:
+   13 verticals x 20 horizontals read off the labelled margins, 260 intersections,
+   affine fit RMS 3.2 px = 11 m. Grid is Lambert Nord de Guerre (EPSG:27500).
+   The coordinate written on Plat A-122 (E 299.84 / N 279.62) converts through
+   this grid to 124 m from the independently fitted position of Grave 1. */
 window.KA_DATA = {
  "bounds": [
   [
@@ -247,5 +240,41 @@ window.KA_DATA = {
     }
    }
   ]
- }
+ },
+ "sheets": [
+  {
+   "title": "28th Division \\u2014 Clermont Sector and Meuse-Argonne, 19 Sept \\u2013 10 Oct 1918",
+   "image": "assets/map-abmc-28th-full.jpg"
+  },
+  {
+   "title": "80th Division \\u2014 Meuse-Argonne, 30 Sept \\u2013 13 Oct 1918",
+   "image": "assets/map-abmc-80th.jpg"
+  },
+  {
+   "title": "Plan of the flank attack against the Argonne, 7 October 1918",
+   "image": "assets/map-plan-7oct.jpg"
+  },
+  {
+   "title": "110th Infantry \\u2014 regimental history map",
+   "image": "assets/map-110th-p88.jpg"
+  }
+ ],
+ "overlays": [
+  {
+   "id": "abmc28",
+   "title": "28th Division, Clermont Sector and Meuse-Argonne, 19 Sept - 10 Oct 1918",
+   "image": "assets/map-abmc-28th-geo.webp",
+   "bounds": [
+    [
+     49.14126682327297,
+     4.886383340166645
+    ],
+    [
+     49.33438582874077,
+     5.0900409809933755
+    ]
+   ],
+   "note": "Georeferenced through its own printed Lambert Nord de Guerre grid (EPSG:27500); 260 grid intersections, RMS 11 m."
+  }
+ ]
 };
