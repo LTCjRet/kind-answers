@@ -1,26 +1,34 @@
 /* Generated. Bounds, plat placement and grave positions for 14-the-ground.html.
-   Regenerate with make_overlays.py; the images must match these bounds exactly. */
+   GRS Plat A-122 fitted to the LiDAR by least-squares similarity on three
+   features that survive on the ground: the road fork SW of Ferme des Granges,
+   the junction NE of it, and the Y-junction 355 m west where a track joins
+   from the north-west. Scale 9.11 px/m, sheet-up -11.19 deg from L93 grid
+   north, control residuals 6.5 / 9.3 / 14.6 m (RMS 10.7).
+   Median offset of the sheet's road linework from real features: 15.4 m,
+   against 21.4 m for the previous two-point fit. A 3-point affine was also
+   tested; it fitted the control points exactly but implied 16% anisotropy
+   and scored worse (17.0 m), so it was rejected. */
 window.KA_DATA = {
  "bounds": [
   [
-   49.26396218703662,
-   4.923317437632083
+   49.263962,
+   4.923317
   ],
   [
-   49.301251276307845,
-   5.007107075806954
+   49.301251,
+   5.007107
   ]
  ],
  "plat": {
   "image": "assets/plat-a122-geo.webp",
   "bounds": [
    [
-    49.28001208701316,
-    4.972286806305139
+    49.27961916613969,
+    4.972105179743955
    ],
    [
-    49.28824722074202,
-    4.985593063248229
+    49.288244109704955,
+    4.985918899760157
    ]
   ]
  },
@@ -32,8 +40,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.981748,
-      49.283011
+      4.981887,
+      49.282992
      ]
     },
     "properties": {
@@ -41,10 +49,11 @@ window.KA_DATA = {
      "name": "Sgt Alexander Dudley Bryant",
      "note": "Co. L, 110th Infantry. Listed on the plat as \"No tag\".",
      "lambert93": [
-      844203,
-      6911074
+      844213,
+      6911072
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 15,
+     "dist_from_anchor_m": 123,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -53,8 +62,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.981806,
-      49.282977
+      4.981947,
+      49.282962
      ]
     },
     "properties": {
@@ -62,10 +71,11 @@ window.KA_DATA = {
      "name": "Charles W. White",
      "note": "1905098. Survey Initial Point for the sheet.",
      "lambert93": [
-      844207,
-      6911071
+      844218,
+      6911069
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 15,
+     "dist_from_anchor_m": 128,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -74,8 +84,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.980893,
-      49.283093
+      4.981044,
+      49.283026
      ]
     },
     "properties": {
@@ -83,10 +93,11 @@ window.KA_DATA = {
      "name": "Unidentified on sheet",
      "note": "Plotted beside Sgt James B. Patton, Co. K, 110th Inf.",
      "lambert93": [
-      844140,
-      6911082
+      844152,
+      6911075
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 15,
+     "dist_from_anchor_m": 69,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -95,8 +106,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.979565,
-      49.283511
+      4.979698,
+      49.283362
      ]
     },
     "properties": {
@@ -104,10 +115,11 @@ window.KA_DATA = {
      "name": "B. Grigaliunas",
      "note": "1896821",
      "lambert93": [
-      844043,
-      6911126
+      844053,
+      6911110
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 15,
+     "dist_from_anchor_m": 49,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -116,8 +128,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.979523,
-      49.283537
+      4.979654,
+      49.283385
      ]
     },
     "properties": {
@@ -125,10 +137,11 @@ window.KA_DATA = {
      "name": "John Kobes",
      "note": "1909712",
      "lambert93": [
-      844040,
-      6911129
+      844049,
+      6911112
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 15,
+     "dist_from_anchor_m": 51,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -137,8 +150,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.979823,
-      49.28472
+      4.979798,
+      49.284554
      ]
     },
     "properties": {
@@ -146,10 +159,11 @@ window.KA_DATA = {
      "name": "Stefano Graziano",
      "note": "1908648. Plotted on the hedge line, not the road.",
      "lambert93": [
-      844058,
-      6911261
+      844057,
+      6911242
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 15,
+     "dist_from_anchor_m": 129,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -158,8 +172,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.976032,
-      49.284532
+      4.97613,
+      49.284168
      ]
     },
     "properties": {
@@ -167,10 +181,11 @@ window.KA_DATA = {
      "name": "T. Holleran",
      "note": "2427154",
      "lambert93": [
-      843783,
-      6911233
+      843791,
+      6911193
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 20,
+     "dist_from_anchor_m": 317,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -179,8 +194,8 @@ window.KA_DATA = {
     "geometry": {
      "type": "Point",
      "coordinates": [
-      4.9762,
-      49.284518
+      4.976295,
+      49.284164
      ]
     },
     "properties": {
@@ -188,10 +203,11 @@ window.KA_DATA = {
      "name": "Alex Moro",
      "note": "1909644",
      "lambert93": [
-      843795,
-      6911232
+      843803,
+      6911193
      ],
-     "uncertainty_m": 30,
+     "uncertainty_m": 20,
+     "dist_from_anchor_m": 306,
      "source": "GRS Plat A-122, Det 1st Bn 29th Engineers, rechecked 2-4 Jan 1919 (NARA)"
     }
    },
@@ -207,12 +223,13 @@ window.KA_DATA = {
     "properties": {
      "grave": "anchor",
      "name": "Road fork",
-     "note": "Georeferencing anchor: the Y-junction SW of Ferme des Granges.",
+     "note": "Control point: the Y-junction SW of Ferme des Granges.",
      "lambert93": [
       844100,
       6911121
      ],
-     "uncertainty_m": 5
+     "uncertainty_m": 5,
+     "dist_from_anchor_m": 0
     }
    }
   ]
