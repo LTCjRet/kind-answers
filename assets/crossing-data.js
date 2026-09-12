@@ -29,7 +29,7 @@ window.KA_CROSSING = {
     hill223:    { lat:49.28609,  lon:4.95283,  name:"Côte 223",        kind:"hill",    src:"OSM, tagged battlefield" },
     hill244:    { lat:49.28050,  lon:4.94500,  name:"Côte 244",        kind:"hill",    inferred:300 },
     york:       { lat:49.28730,  lon:4.94001,  name:"York site",       kind:"minor",   src:"OSM memorial" },
-    laforge:    { lat:49.28550,  lon:4.96700,  name:"La Forge",        kind:"farm",    inferred:300 },
+    laforge:    { lat:49.28390,  lon:4.96654,  name:"La Forge",        kind:"farm",    src:"read off the 1918 sheet and the IGN LiDAR: where the boundary road crosses the farm building axis. L93 843094 6911146" },
     abbatiale:  { lat:49.28873,  lon:4.97100,  name:"Abbatiale",       kind:"farm",    src:"Abbaye de Chéhéry, OSM" },
     pleinchamp: { lat:49.29076,  lon:4.97320,  name:"Pleinchamp Fme",  kind:"farm",    src:"Fme de Plein Champ, OSM" },
     granges:    { lat:49.28545,  lon:4.98121,  name:"Fme des Granges", kind:"farm",    src:"OSM" },
@@ -38,7 +38,7 @@ window.KA_CROSSING = {
     exermont:   { lat:49.29437,  lon:5.00628,  name:"Exermont",        kind:"village", src:"OSM" },
     baulny:     { lat:49.26203,  lon:5.01388,  name:"Baulny",          kind:"village", src:"OSM" },
     ford:       { lat:49.27180,  lon:4.99260,  name:"Ford, 4 Oct",     kind:"minor",   inferred:200 },
-    crossing:   { lat:49.28620,  lon:4.96160,  name:"Crossing",        kind:"minor",   inferred:250 },
+    crossing:   { lat:49.28210,  lon:4.96575,  name:"Crossing",        kind:"minor",   inferred:250 },
     grave8:     { lat:49.283149, lon:4.981736, name:"Grave 8",         kind:"grave",   src:"GRS Plat A-122; same point as ground-data.js" }
   },
 
@@ -64,7 +64,14 @@ window.KA_CROSSING = {
   features: [
     { id:"boundary", layer:"boundary", type:"band", grade:"inferred", color:"flank", width:230,
       days:["oct7","oct8","oct9"], label:"28th / 82nd Division boundary",
-      pts:[[49.2838,4.9930],["granges",-0.0016,0],["laforge",-0.0012,0],["chatel",-0.0005,0],["hill244",0.0010,-0.0020]] },
+      /* The road itself, from points read off the laser survey: straight east-west
+         from the fork south-west of Ferme des Granges (the 1919 plat's own control
+         point, 49.283454 / 4.980351) to La Forge, then bending WSW to cross the Aire
+         at 49.28331 / 4.96483. The field orders name those places as "inclusive" to
+         the 82nd; the road through them is the only line on the ground that answers
+         to that, so the boundary is drawn along it. */
+      pts:[[49.28340,4.99300],["laforge",-0.00045,0.01381],["laforge",0,0],
+           ["laforge",-0.00059,-0.00171],["chatel",-0.00060,0],["hill244",0.00100,-0.00200]] },
 
     { id:"advance4", layer:"route", type:"line", grade:"stated", color:"us", width:26,
       days:["oct4","oct5","oct6","night","oct7","oct8","oct9"], label:"4 Oct · ford at Apremont, advance north",
@@ -72,31 +79,43 @@ window.KA_CROSSING = {
 
     { id:"bn3to4", layer:"route", type:"line", grade:"stated", color:"us", width:26,
       days:["oct4","oct5","oct6","night","oct7","oct8","oct9"], label:"4 Oct · 3rd Bn thrown in on the left, to La Forge",
-      pts:[["granges",-0.0020,-0.0010],[49.2848,4.9760],"laforge"] },
+      pts:[["granges",-0.0020,-0.0010],[49.2836,4.9760],"laforge"] },
 
     { id:"bn2to4", layer:"route", type:"line", grade:"stated", color:"flank", width:22,
       days:["oct4","oct5","oct6"], label:"4 Oct · 2nd Bn up the centre, to Pleinchamp",
       pts:[["granges",-0.0020,-0.0010],[49.2880,4.9770],"pleinchamp",[49.2980,4.9720]] },
 
-    { id:"line56", layer:"line", type:"line", grade:"stated", color:"us", width:20,
-      days:["oct5","oct6"], label:"5–6 Oct · line held just south of La Forge",
-      pts:[["laforge",-0.0014,-0.0055],["laforge",-0.0014,0],["laforge",-0.0016,0.0090],["granges",-0.0020,0.0030]] },
+    /* "Just south of La Forge Farm" is one statement, so it is encoded once: a
+       single offset of 150 m south of the La Forge anchor, held along the whole
+       length, running east from the right bank of the Aire to Ferme des Granges.
+       Written as four independent offsets it used to wander across both the river
+       and the later division boundary. Drawn as a band because 150 m is a reading
+       of "just south", not a measurement. */
+    { id:"line56", layer:"line", type:"band", grade:"inferred", color:"us", width:200,
+      days:["oct5","oct6"], label:"5–6 Oct · line held just south of La Forge Farm",
+      /* "Just south of La Forge Farm": 100 m south of the measured farm point, east
+         to below the road fork, west only as far as the right bank. The west end is
+         set by the river, not by shifting the road's own ford south - the Aire runs
+         north-west here, so a point shifted south from the ford lands on the
+         German-held bank, which is how this line went wrong the first time. */
+      pts:[["laforge",-0.00090,-0.00074],["laforge",-0.00090,0],["laforge",-0.00135,0.01381]] },
 
     { id:"crossband", layer:"crossing", type:"band", grade:"inferred", color:"gold", width:215,
       days:["night","oct7","oct8"], label:"Crossing reach — the search box",
-      pts:[[49.28344,4.96459],[49.284013,4.963784],[49.284496,4.962965],[49.28498,4.962366],[49.28689,4.961181],[49.287672,4.960821]] },
+      pts:[[49.280671,4.967498],[49.281309,4.966757],[49.282033,4.965862],
+           [49.282922,4.965165],[49.283440,4.964590]] },
 
     { id:"attack7", layer:"route", type:"line", grade:"stated", color:"us", width:30, arrow:true,
       days:["oct7","oct8","oct9"], label:"7 Oct 05:30 · 3rd Bn leads the attack west",
-      pts:[["laforge",-0.0012,-0.0020],"crossing",[49.2848,4.9590],"chatel",[49.2832,4.9500]] },
+      pts:[["laforge",-0.00090,-0.00074],"crossing",[49.2825,4.9590],"chatel",[49.2832,4.9500]] },
 
     { id:"recon6", layer:"route", type:"line", grade:"conjectural", color:"ink", width:16,
       days:["oct6"], label:"6 Oct · reconnaissance of the enemy position",
-      pts:[["laforge",-0.0014,-0.0030],[49.2845,4.9560],"hill244"] },
+      pts:[["laforge",-0.00090,-0.00074],[49.2830,4.9560],"hill244"] },
 
     { id:"relief9", layer:"route", type:"line", grade:"stated", color:"flank", width:24,
       days:["oct9"], label:"9 Oct · relieved 05:30, marched via Montblainville",
-      pts:["chatel",[49.2810,4.9660],[49.2760,4.9840],"apremont",[49.2560,5.0060],[49.2480,5.0120]] }
+      pts:["chatel",[49.2810,4.9690],[49.2760,4.9840],"apremont",[49.2560,5.0060],[49.2480,5.0120]] }
   ],
 
   marks: [
@@ -114,48 +133,56 @@ window.KA_CROSSING = {
 
   days: [
     { id:"oct3", tab:"3 Oct", cas:"—", eyebrow:"3 October 1918",
+      short:"Reorganising under shellfire below Apremont.", focus:{ at:"apremont", span:1000 },
       title:"Patrolling below Apremont",
       body:"The regiment had taken Apremont and beaten off the German counter-attack of 1 October. It spent the 3rd reorganising under shellfire and preparing for the next advance.",
       quote:"Little was done on October 3rd, except in patrolling and in preparing for the advance on the following day. The Regiment, however, was under heavy artillery fire a great part of the time.",
       cite:"History of the 110th Infantry, ch. XXIX" },
 
     { id:"oct4", tab:"4 Oct", cas:"9 killed · 48 wounded", eyebrow:"4 October 1918",
+      short:"3rd Battalion thrown in on the left, and on to La Forge.", focus:{ at:"laforge", span:2600 },
       title:"Across the Aire, and the 3rd Battalion goes left",
       body:"The regiment forded the Aire at Apremont and pushed north up the <em>east</em> bank, in a corridor between the river and the Baulny–Grandpré road. By noon the attack was held up. The 3rd Battalion — Company L's battalion — was thrown in on the left, along the river, and drove to La Forge. The 2nd Battalion carried the centre to Pleinchamp.",
       quote:"Regiment, after fording river at Apremont, attacked in a northerly direction in sector between the Fleville–Baulny road on the east and the Aire River on the west… 3rd Battalion thrown in on left near La Forge. 2nd Battalion advanced to Plain Champ Fme. and consolidated there. Heavy fighting all day.",
       cite:"110th Infantry abbreviated war diary" },
 
     { id:"oct5", tab:"5 Oct", cas:"2 killed · 7 wounded", eyebrow:"5 October 1918",
+      short:"The line held just short of La Forge Farm.", focus:{ at:"laforge", span:1100 },
       title:"Holding the line south of La Forge",
       body:"A day of consolidation on the valley floor, with the 77th Division stalled in the forest across the river. The brigade line ran east–west just short of La Forge Farm. Company L is named at Pleinchamp Farm on this date in Sergeant Kokos's citation — the one point where the citation and the war diary do not sit flush.",
       quote:"On October 5 our line was just south of La Forge Farm with the Second Battalion and the Third Battalion on the line, and the First Battalion in support on the high ground immediately north of Apremont.",
       cite:"Martin, The Twenty-Eighth Division — 109th Infantry" },
 
     { id:"oct6", tab:"6 Oct", cas:"6 killed · 30 wounded", eyebrow:"6 October 1918",
+      short:"Artillery all day, and the attack order enlarged.", focus:{ at:"laforge", span:1100 },
       title:"The attack order is enlarged",
       body:"Artillery on both sides was active all day while the ground west of the river was studied. A limited attack to seize Côte 244 was replaced from above by a combined 28th and 82nd Division attack across the Aire, intended to make the whole Argonne untenable.",
       quote:"…changed by higher command from a small attack, which had as its objective the seizing of Hill 244, to a larger attack by the 28th and 82nd Divisions for the purpose of forcing the evacuation of the Argonne forest.",
       cite:"History of the 110th Infantry, ch. XXIX" },
 
     { id:"night", tab:"Night 6/7", cas:"—", eyebrow:"Night of 6–7 October",
+      short:"Over the Aire in the dark, south of La Forge.", focus:{ at:"crossing", span:700 },
       title:"Over the river in the dark",
       body:"The regiment crossed from the right bank to the left — east to west — at or immediately south of La Forge, in darkness, with no dependable bridge. Machine guns on Côte 223 and Côte 244 held the valley floor in daylight. That is why it was done at night.",
       quote:"After crossing Aire River at La Forge during the night.",
       cite:"110th Infantry abbreviated war diary" },
 
     { id:"oct7", tab:"7 Oct", cas:"6 killed · 19 wounded", eyebrow:"7 October 1918",
+      short:"05:30 attack west; the village taken.", focus:{ at:"chatel", span:1100 },
       title:"Châtel-Chéhéry",
       body:"At 05:30 the regiment attacked west with the 3rd Battalion leading, then the 2nd, then the 1st. The Germans did not hold the village but swept it from the two hills. Company L was in the leading battalion. Alexander Bryant, three weeks in the company, was hit in the chest and died being carried back.",
       quote:"I helped carry Sgt. Alexander Bryant back to the first aid station. He was seriously wounded in the chest and died just as we reached the first aid station. This occurred on October 7th, 1918, at Chatel Chehery, France.",
       cite:"Sgt Leslie Walker, Co. L, 110th Infantry" },
 
     { id:"oct8", tab:"8 Oct", cas:"16 killed · 69 wounded", eyebrow:"8 October 1918",
+      short:"Held under shellfire — the regiment’s worst day.", focus:{ at:"chatel", span:1100 },
       title:"The worst day",
       body:"The war diary records the situation as unchanged. It was the regiment's heaviest day of the week: shelling and sniping in and around the village while the hills were fought over. Three more Company L men — Keck, Morberg and Hightower — were shot by snipers.",
       quote:"Situation unchanged. Officers — killed 1, wounded 2. Enlisted men — killed 15, wounded 67, missing 23.",
       cite:"110th Infantry abbreviated war diary" },
 
     { id:"oct9", tab:"9 Oct", cas:"7 killed · 4 wounded", eyebrow:"9 October 1918",
+      short:"Relieved at 05:30; a field grave at Ferme des Granges.", focus:{ at:"grave8", span:900 },
       title:"Relieved, and a grave at Ferme des Granges",
       body:"The 82nd Division completed the relief at 05:30 and the regiment marched out by battalions. The field grave was recorded at Ferme des Granges — ground that on 7 October lay inside the 82nd Division's sector, not his own regiment's.",
       quote:"Relief by the 82nd U.S. Division completed at 5:30 A.M. Regiment marched by battalions via Montblainville, France, to Camp de Bouzon.",
@@ -163,9 +190,10 @@ window.KA_CROSSING = {
   ],
 
   caveats: [
-    ["La Forge","placed by inference, not survey. The 328th Infantry put the Bois des Granges \"about one kilometre east of La Forge\" and its assault \"nearly two kilometres\" from there to the Aire and Hill 223, which fixes it near this spot on the east bank. The building cluster at 4.971 E is the <b>Abbaye de Chéhéry</b> — the <em>Abbatiale Fme</em> of the 1918 sheet — not La Forge."],
+    ["La Forge","measured, not inferred. The farm point and the road that becomes the division boundary were read off the 1918 sheet and the IGN laser survey: the road crosses the farm’s building axis — buildings stand on both sides, on a roughly 010–190 bearing — at 49.28390 / 4.96654, and bends west-south-west immediately west of them to cross the Aire at 49.28331 / 4.96483. An earlier reconstruction from the 328th Infantry’s stated distances put the farm 178 m too far north, which pushed the 5–6 October line onto the wrong side of the road."],
     ["Côte 244","approximate. Côte 223 is confirmed; 244 is placed west-south-west of the village from the 109th Infantry's description of the Bois de Châtel lying south-west of it. The 1918 sheet also labels a Côte 243 nearby, which may or may not be the same feature."],
     ["The division boundary","drawn as a band, not a line, and deliberately so. The 328th's sector ran \"south by Ferme des Granges and La Forge and Chatel Chehery <em>inclusive</em>\", while the 110th was assigned \"that portion of the town of Chatel-Chehery\" lying between the two hills. Both divisions had a claim on the village."],
+    ["The 5–6 October line","runs about 100 m south of the road that became the division boundary on the 7th — because those really are nearly the same line. The 28th held to just south of La Forge Farm, and when the 82nd took the sector over the boundary was put along much the same ground. Both are shown as bands rather than lines so the map does not claim to separate them."],
     ["The crossing reach","the honest answer is a stretch of river, not a point. \"At La Forge\" (war diary) and \"immediately south of La Forge\" (regimental narrative) bound it; the band is what those two statements jointly allow."],
     ["The Aire's course","is the modern channel, from OpenStreetMap. The 1918 bed may differ, and a relict channel is among the things the laser survey could show."],
     ["Company L on 5 October","Kokos's citation names Pleinchamp Farm; the war diary puts the 3rd Battalion at La Forge and the 2nd at Pleinchamp. The marker carries that ambiguity rather than resolving it."],

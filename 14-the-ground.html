@@ -702,10 +702,21 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ka-ext{border-top:1px solid var(--rule);padding-top:9px;margin-top:2px}
 .ka-disabled{opacity:.42;pointer-events:none}
 .ka-locked{opacity:.55}
+/* The panel scrolls, and the readout is the last thing in it, so without this
+   it sits 500px below the fold and may as well not exist. */
 .ka-readout{
-  border-top:1px solid var(--rule); padding-top:8px;
+  position:sticky; bottom:0; z-index:2;
+  margin:6px -14px -10px; padding:8px 14px 9px;
+  background:rgba(245,240,230,.98); border-top:1px solid var(--rule);
   font:11px/1.4 var(--mono); color:#7a7065; word-break:break-all;
 }
+.ka-readout.ka-pinned{background:#fbf3ef;color:var(--ink)}
+.ka-readout .ka-hold{
+  display:block;margin-top:4px;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:#9a9184;
+  word-break:normal;overflow-wrap:normal;   /* the readout breaks anywhere; prose must not */
+}
+.ka-readout.ka-pinned .ka-hold{color:var(--accent)}
 
 /* ---------- spoiler gate ---------- */
 .ka-gate{
@@ -739,6 +750,46 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .leaflet-popup-content b{font-size:15px}
 .leaflet-popup-content .ka-meta{display:block;margin-top:6px;font:11px/1.45 var(--mono);color:#7a7065}
 .leaflet-container{font-family:Georgia,serif;background:var(--paper-2)}
+
+/* ---------- movements overlay (assets/crossing-overlay.js) ---------- */
+.ka-days{display:grid;grid-template-columns:1fr 1fr;gap:0 10px;margin-top:5px}
+.ka-cross-short{margin:9px 0 0;font-size:12px;line-height:1.4;color:var(--ink-soft);font-style:italic}
+.ka-go{
+  margin:9px 0 0;padding:5px 11px;cursor:pointer;
+  font:600 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:var(--accent);border:1px solid var(--rule);border-radius:3px;
+}
+.ka-go:hover{border-color:var(--accent);background:var(--paper)}
+.ka-cross-panel{
+  margin:0 0 34px;padding:20px 24px;background:#fbf8f1;
+  border:1px solid var(--rule);border-top:3px solid var(--accent-2);border-radius:3px;
+}
+.ka-cross-panel[hidden]{display:none}
+.ka-cross-panel .ka-cross-ey{
+  margin:0 0 7px;font:600 11px/1 var(--mono);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent);
+}
+.ka-cross-panel h3{margin:0 0 11px;font-size:20px;font-weight:400;letter-spacing:.01em}
+.ka-cross-panel p{margin:0 0 13px;font-size:16.5px}
+.ka-cross-panel blockquote{margin:17px 0 13px;font-size:17px}
+.ka-cross-panel p.ka-cross-cas{margin:0;font:12.5px/1.5 var(--mono);color:#7a7065}
+
+/* map labels for the overlay */
+.ka-unit{
+  display:inline-block;transform:translate(-50%,-170%);white-space:nowrap;
+  padding:2px 6px;background:rgba(245,240,230,.94);border:1.5px solid;border-radius:2px;
+  font:600 11px/1.25 var(--mono);letter-spacing:.06em;
+}
+.ka-pin{
+  position:absolute;left:0;top:0;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;
+  border-radius:50%;background:var(--gold);border:2px solid var(--paper);
+  box-shadow:0 0 0 1px rgba(28,24,21,.5);
+}
+.ka-pin-label{
+  position:absolute;left:50%;top:-30px;transform:translateX(-50%);white-space:nowrap;
+  padding:1px 6px;background:var(--gold);color:#fff;border-radius:2px;
+  font:600 10.5px/1.55 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+}
 
 @media (max-width:720px){
   .ka-panel{position:static;width:auto;max-height:none;margin-top:12px}
@@ -843,6 +894,27 @@ svg.leaflet-image-layer.leaflet-interactive path {
     </div>
 
     <div class="ka-group">
+      <h3>Movements, 3&ndash;9 Oct</h3>
+      <label><input type="checkbox" id="ka-cross"> The 110th's ground</label>
+      <div id="ka-cross-rows" class="ka-disabled">
+        <div class="ka-days">
+        <label><input type="radio" name="ka-day" value="oct3" checked> 3 Oct</label>
+        <label><input type="radio" name="ka-day" value="oct4"> 4 Oct</label>
+        <label><input type="radio" name="ka-day" value="oct5"> 5 Oct</label>
+        <label><input type="radio" name="ka-day" value="oct6"> 6 Oct</label>
+        <label><input type="radio" name="ka-day" value="night"> Night 6/7</label>
+        <label><input type="radio" name="ka-day" value="oct7"> 7 Oct</label>
+        <label><input type="radio" name="ka-day" value="oct8"> 8 Oct</label>
+        <label><input type="radio" name="ka-day" value="oct9"> 9 Oct</label>
+        </div>
+        <p id="ka-cross-short" class="ka-cross-short"></p>
+        <button type="button" id="ka-cross-go" class="ka-go">Go there</button>
+      </div>
+      <p class="ka-note">From the regiment's war diary. Solid lines are stated in
+      the records, dashed are inferred, dotted are argument.</p>
+    </div>
+
+    <div class="ka-group">
       <h3>Reference</h3>
       <label class="ka-ext"><input type="checkbox" id="ka-allow-ext"> Allow external map services</label>
       <div id="ka-ext-list" class="ka-disabled">
@@ -863,7 +935,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       laid on the map. They open as sheets to read.</p>
     </div>
 
-    <div class="ka-readout"><span id="ka-coords">&mdash;</span></div>
+    <div class="ka-readout" id="ka-readout"><span id="ka-coords">&mdash;</span><span class="ka-hold" id="ka-hold">click the map to hold a reading</span></div>
   </div>
 
   <div id="ka-gate" class="ka-gate" hidden>
@@ -876,6 +948,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
          <button type="button" id="ka-gate-no" class="ka-quiet">Not yet</button></p>
     </div>
   </div>
+</div>
+
+<div id="ka-cross-panel" class="ka-cross-panel" hidden>
+  <div id="ka-cross-body"></div>
 </div>
 
 <div id="ka-reader" hidden>
@@ -906,7 +982,7 @@ road southwest of the Ferme des Granges, and the junction where that road meets 
 it. The sheet was drawn by plane table, and its own scale bar disagrees with its road network by about
 seven per cent &mdash; so treat every marked grave as accurate to about thirty metres, not to the metre.</p>
 
-<div class="pager"><a href="13-sources.html"><span class="lbl">Previous</span>&larr; 13 &middot; Sources</a></div>
+<div class="pager"><a href="13-sources.html"><span class="lbl">Previous</span>&larr; 13 &middot; Sources</a><a href="15-the-crossing.html"><span class="lbl">Next</span>15 &middot; The crossing &rarr;</a></div>
 </div>
 
 <footer class="site"><div class="wrap">Kind Answers &middot; <a href="13-sources.html">Sources and records</a> &middot; <span style="font-size:13px">Narrative and analysis &copy; 2026 John Gladin, licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>; U.S. federal records are public domain. Elevation data &copy; IGN &mdash; Programme LiDAR HD, licence Etalab 2.0. <a href="index.html#distribution">Some material is not for redistribution.</a></span></div></footer>
@@ -921,6 +997,8 @@ seven per cent &mdash; so treat every marked grave as accurate to about thirty m
 //# sourceMappingURL=leaflet.js.map
 </script>
 <script src="assets/ground-data.js"></script>
+<script src="assets/crossing-data.js"></script>
+<script src="assets/crossing-overlay.js"></script>
 <script>
 /* The Ground — Kind Answers. Self-contained: no network calls unless opted in. */
 (function () {
@@ -1140,13 +1218,32 @@ seven per cent &mdash; so treat every marked grave as accurate to about thirty m
   var N = (Math.log(mm(LAT1)) - Math.log(mm(LAT2))) / (Math.log(tt(LAT1)) - Math.log(tt(LAT2))),
       BF = mm(LAT1) / (N * Math.pow(tt(LAT1), N)), RHO0 = A * BF * Math.pow(tt(LAT0), N);
   var out = document.getElementById("ka-coords");
-  map.on("mousemove", function (e) {
-    var p = e.latlng.lat * Math.PI / 180, l = e.latlng.lng * Math.PI / 180;
+  var readout = document.getElementById("ka-readout");
+  var hold = document.getElementById("ka-hold");
+  var pinned = false;
+
+  function fmt(ll) {
+    var p = ll.lat * Math.PI / 180, l = ll.lng * Math.PI / 180;
     var rho = A * BF * Math.pow(tt(p), N), th = N * (l - LON0);
-    out.textContent = e.latlng.lat.toFixed(5) + ", " + e.latlng.lng.toFixed(5) + "  |  L93 " +
+    return ll.lat.toFixed(5) + ", " + ll.lng.toFixed(5) + "  |  L93 " +
       Math.round(X0 + rho * Math.sin(th)) + " " + Math.round(Y0 + RHO0 - rho * Math.cos(th));
+  }
+  map.on("mousemove", function (e) { if (!pinned) { out.textContent = fmt(e.latlng); } });
+  map.on("mouseout", function () { if (!pinned) { out.innerHTML = "&mdash;"; } });
+
+  // A reading that follows the pointer cannot be read off, because reading it
+  // means looking away and the pointer has already moved. Clicking holds it.
+  map.on("click", function (e) {
+    pinned = !pinned;
+    out.textContent = fmt(e.latlng);
+    readout.classList.toggle("ka-pinned", pinned);
+    hold.textContent = pinned ? "held \u2014 click the map again to release"
+                              : "click the map to hold a reading";
   });
-  map.on("mouseout", function () { out.innerHTML = "&mdash;"; });
+
+  // The movements overlay lives in its own file and reads the same
+  // coordinates as 15-the-crossing.html. It owns nothing here but the map.
+  if (window.KA_CROSSING_OVERLAY) { window.KA_CROSSING_OVERLAY(map, L); }
 
   setBase("svf");
 })();
