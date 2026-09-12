@@ -1,9 +1,9 @@
 /* Generated. Bounds, plat placement, graves, georeferenced overlays and reader sheets.
-   ABMC 28th Division sheet georeferenced from its own printed war grid:
-   13 verticals x 20 horizontals read off the labelled margins, 260 intersections,
-   affine fit RMS 3.2 px = 11 m. Grid is Lambert Nord de Guerre (EPSG:27500).
-   The coordinate written on Plat A-122 (E 299.84 / N 279.62) converts through
-   this grid to 124 m from the independently fitted position of Grave 1. */
+   ABMC 28th Division sheet georeferenced through its own printed war grid
+   (Lambert Nord de Guerre, EPSG:27500), 260 margin-read intersections, RMS 11 m,
+   then shifted -92 m E / -75 m N for the wartime-vs-modern datum offset measured
+   at the road fork. With that shift, the coordinate written on Plat A-122 in 1919
+   (E 299.84 / N 279.62) lands 14 m from the independently fitted Grave 1. */
 window.KA_DATA = {
  "bounds": [
   [
@@ -266,15 +266,15 @@ window.KA_DATA = {
    "image": "assets/map-abmc-28th-geo.webp",
    "bounds": [
     [
-     49.14126682327297,
-     4.886383340166645
+     49.14061258426467,
+     4.8850937286892835
     ],
     [
-     49.33438582874077,
-     5.0900409809933755
+     49.33373364996864,
+     5.088753380627623
     ]
    ],
-   "note": "Georeferenced through its own printed Lambert Nord de Guerre grid (EPSG:27500); 260 grid intersections, RMS 11 m."
+   "note": "Georeferenced from its own printed Lambert Nord de Guerre grid (EPSG:27500): 260 intersections read off the labelled margins, affine RMS 11 m. A datum shift of -92 m E, -75 m N is applied - the wartime grid sits about 120 m north-east of the modern realisation, measured against the road fork SW of Ferme des Granges."
   }
  ]
 };
