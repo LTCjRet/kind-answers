@@ -286,3 +286,49 @@ Both are 1944 United States Government publications and therefore public domain 
 unlike the Lengel plate they appear on the site itself rather than being held in the
 research files. They **supersede MAPW-0001 and MAPW-0002**, which have carried
 "provenance to confirm" since August; those rows are now marked accordingly.
+
+## Revision 6 — 12 September 2026
+
+**The ground between Apremont and Châtel-Chéhéry, and a position corrected by
+looking at it.**
+
+Two map pages now carry the 110th Infantry's movements between 3 and 9 October
+1918, drawn from the regiment's own abbreviated war diary: a new page, *The
+crossing at La Forge*, and a movements overlay on *The Ground* with the days on
+radio buttons. Every line is marked for how firmly it is known — solid where the
+records state it, dashed where it is inferred from a neighbouring unit's account,
+dotted where it is argument — and where the honest answer is an area rather than
+a line, it is drawn as a band.
+
+**La Forge Farm has moved 178 metres.** The first reconstruction placed it by
+triangulating the 328th Infantry's stated distances — the Bois des Granges
+*"about one kilometre east of La Forge"*, the assault covering *"nearly two
+kilometres"* to the Aire and Hill 223. That put the farm at 49.28550 / 4.96700,
+and with it the 110th's 5–6 October line, which landed on the **north** side of
+the boundary road — the wrong side, and at its western end on the wrong bank of
+the Aire entirely.
+
+The farm's building axis turns out to be visible on two independent records: the
+ABMC 28th Division folding map and the IGN laser survey. Read off both, the road
+crosses that axis at **49.28390 / 4.96654**, with buildings standing on either
+side of it on a bearing of about 010–190, and bends west-south-west immediately
+west of them to cross the Aire at 49.28331 / 4.96483. The front line, the
+crossing reach and the division boundary are all expressed relative to that
+point, so all three moved with it. *(W-102)*
+
+The correction is worth recording as a caution and not only as a fix: distances
+stated by a unit in the field, in a history written afterwards, are not a
+substitute for a position read off the ground.
+
+**One caption corrected.** The georeferenced overlay on *The Ground* was labelled
+*28th Division sheet (1937)*. It is the American Battle Monuments Commission's
+folding map of **1944**, as the Perry-Castañeda collection that supplied it
+states. The sheet is unchanged; only its caption was wrong.
+
+**Three sources catalogued** that the account had been resting on without record
+IDs — the IGN LiDAR HD survey (**`MAPW-0006`**), Edward Martin's *The
+Twenty-Eighth Division* (**`REGH-0007`**), and the *History of the 328th
+Infantry* (**`REGH-0008`**). The last of these is the record that establishes the
+110th as the 28th Division's right-flank regiment on 7 October, and also the
+source of the stated distances that put La Forge wrong; it is load-bearing in one
+direction and misleading in the other.
