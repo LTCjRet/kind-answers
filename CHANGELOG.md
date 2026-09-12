@@ -332,3 +332,71 @@ Infantry* (**`REGH-0008`**). The last of these is the record that establishes th
 110th as the 28th Division's right-flank regiment on 7 October, and also the
 source of the stated distances that put La Forge wrong; it is load-bearing in one
 direction and misleading in the other.
+
+## Revision 7 — 12 September 2026
+
+**The maps join the account, and the spoiler gate stops giving the game away.**
+
+*The Ground* and *The crossing at La Forge* were reachable only by typing their
+addresses. They now sit in the masthead between *The Fireplace* and *Reference* —
+one entry, because they are apparatus rather than narrative and Sources should
+still close the account. The crossing map is reached from The Ground, as before.
+
+**The gate no longer names what it is holding back.** It used to ask whether you
+wanted to see the burial locations, which had already told you there were burial
+locations to see. It now asks where you are in the reading:
+
+> Where are you in the account? These maps carry the whole of the 110th
+> Infantry's week in the Aire valley, the last day of it included. If you are
+> reading the chapters in order and have not yet reached October, part of what is
+> drawn here will get ahead of the story.
+
+Two choices, remembered for the visit and nothing longer, and changeable at any
+time from the map controls. One answer covers both map pages rather than being
+asked twice. Held back, it withholds the burial layer, the marker naming him, the
+account of his wounding on 7 October and the grave on the 9th. Held back is not
+blank: 7 October still gives the attack from the war diary, and 9 October still
+gives the relief and what the fortnight had cost the regiment.
+
+**7 October is now two steps.** The day had been carrying the attack, the wounding
+and the death in one paragraph, which is not how it happened. The first step ends
+where Sgt Walker and another man pick him up and start back, and the quotation
+stops mid-sentence with it — *"He was seriously wounded in the chest…"*. The second
+step, *Aid station*, carries the rest of that statement whole, draws the carry east
+across the Aire, and brings up the 1919 plat and the burial markers.
+
+Those two are not offered at all until the reader arrives there. A cleared reading
+position is no longer enough on its own: the plat control, the burial control and
+the paragraph explaining how the plat was fitted all stay out of the panel until
+the *Aid station* step has been reached, and they lock again if the reader sets the
+reading position back. They belong to the end of the sequence, and the panel should
+not be advertising the end of it from the top.
+
+That second step exists only because of how the day ended, so it is not in the
+timeline at all until the reader has cleared — a greyed-out step labelled *Aid
+station* would announce itself as loudly as the old gate did. Nothing about the
+carry is evidence: Walker says he helped carry him back and that he died as they
+reached the station, and where the station stood is recorded nowhere. It is drawn
+to the burial plot because that is the one fixed point there is, and because men
+who died at an aid post were commonly buried beside it. That is reasoning, and the
+route is drawn as conjecture to say so.
+
+**The gate had a hole in it, and the hole was most of the page.** Withholding the
+burial markers achieved nothing while the standfirst above the map read *"with the
+1919 graves registration plat laid back over them"*, the panel offered an overlay
+called *Plat A-122 (1919)* whose plots are drawn on the image itself, and the prose
+below advised treating *"every marked grave"* as accurate to thirty metres. Six
+places in all, counting the page description and the no-JavaScript captions. The
+standfirst and that paragraph now have stand-ins that say the same thing without
+the clause; the plat and the burial controls are not shown at all until the reader
+has cleared; and both refuse to load even if their hidden controls are forced,
+because hiding a control is presentation and not a lock.
+
+**An estimated position for the wounding**, and it is the only thing on either map
+that rests on no document at all. The records say he was hit during the westward
+advance and carried back to the aid station; that is the whole of it, and it puts
+him between the river and the village. It is drawn as a soft circle spanning the
+ground from the Aire to the midpoint of La Forge and Châtel-Chéhéry, on the
+conjectural grade, and it carries no claim ID because there is nothing to cite.
+Before the reader has reached October it appears with no label, no tooltip and
+nothing to click — a shape on the ground and no more.

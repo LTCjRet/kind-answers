@@ -39,6 +39,7 @@ window.KA_CROSSING = {
     baulny:     { lat:49.26203,  lon:5.01388,  name:"Baulny",          kind:"village", src:"OSM" },
     ford:       { lat:49.27180,  lon:4.99260,  name:"Ford, 4 Oct",     kind:"minor",   inferred:200 },
     crossing:   { lat:49.28210,  lon:4.96575,  name:"Crossing",        kind:"minor",   inferred:250 },
+    wounding:   { lat:49.28333,  lon:4.96257,  name:"",                kind:"minor",   inferred:170, src:"estimate only — see the notes" },
     grave8:     { lat:49.283149, lon:4.981736, name:"Grave 8",         kind:"grave",   src:"GRS Plat A-122; same point as ground-data.js" }
   },
 
@@ -115,7 +116,25 @@ window.KA_CROSSING = {
 
     { id:"relief9", layer:"route", type:"line", grade:"stated", color:"flank", width:24,
       days:["oct9"], label:"9 Oct · relieved 05:30, marched via Montblainville",
-      pts:["chatel",[49.2810,4.9690],[49.2760,4.9840],"apremont",[49.2560,5.0060],[49.2480,5.0120]] }
+      pts:["chatel",[49.2810,4.9690],[49.2760,4.9840],"apremont",[49.2560,5.0060],[49.2480,5.0120]] },
+
+    /* The only feature here that no record places. He was hit somewhere during
+       the westward advance and carried back east to the aid station; that puts him
+       between the river and the village. Drawn as a circle reaching from the Aire
+       to the midpoint of La Forge – Châtel-Chéhéry, on the conjectural grade, and
+       deliberately given no claim ID. It is an estimate and must read as one. */
+    /* Where the aid station stood is not recorded. The carry is drawn to the burial
+       plot because that is the only fixed point in the account - men who died at an
+       aid post were commonly buried beside it - but that is an inference, so the
+       route is conjecture and drawn as such. */
+    { id:"carryback", layer:"wounding", type:"line", grade:"conjectural", color:"gold", width:18,
+      days:["oct7b"], label:"Carried back to the first aid station",
+      pts:["wounding",[49.28310,4.96480],[49.28320,4.97100],[49.28318,4.97600],"grave8"] },
+
+    { id:"woundzone", layer:"wounding", type:"zone", grade:"conjectural", color:"gold",
+      radius:170, days:["oct7","oct7b","oct8","oct9"], reveal:"label",
+      centre:"wounding",
+      label:"Estimated position of Sgt Bryant's wounding, 7 October" }
   ],
 
   marks: [
@@ -127,8 +146,8 @@ window.KA_CROSSING = {
     { id:"coL7",     days:["oct7","oct8"],          at:"chatel",     kind:"coL",   text:"Co. L", dlat:0.0015, dlon:-0.0031 },
     { id:"mg223",    days:["oct5","oct6","night","oct7"], at:"hill223", kind:"enemy", text:"MG", dlat:0.0014, dlon:-0.0007 },
     { id:"mg244",    days:["oct5","oct6","night","oct7"], at:"hill244", kind:"enemy", text:"MG", dlat:0.0015, dlon:-0.0013 },
-    { id:"bryant",   days:["oct7","oct8","oct9"],   at:"chatel",     kind:"kia",   text:"Sgt A. D. Bryant", dlat:-0.0025, dlon:0.0036 },
-    { id:"grave",    days:["oct9"],                 at:"grave8",     kind:"grave", text:"Grave 8" }
+    { id:"hit",      days:["oct7","oct7b"],         at:"wounding",   kind:"kia",   text:"Sgt Bryant hit", dlat:-0.0017, dlon:0.0027, reveal:true },
+    { id:"grave",    days:["oct7b","oct9"],         at:"grave8",     kind:"grave", text:"Grave 8", reveal:true }
   ],
 
   days: [
@@ -169,9 +188,26 @@ window.KA_CROSSING = {
 
     { id:"oct7", tab:"7 Oct", cas:"6 killed · 19 wounded", eyebrow:"7 October 1918",
       short:"05:30 attack west; the village taken.", focus:{ at:"chatel", span:1100 },
-      title:"Châtel-Chéhéry",
-      body:"At 05:30 the regiment attacked west with the 3rd Battalion leading, then the 2nd, then the 1st. The Germans did not hold the village but swept it from the two hills. Company L was in the leading battalion. Alexander Bryant, three weeks in the company, was hit in the chest and died being carried back.",
-      quote:"I helped carry Sgt. Alexander Bryant back to the first aid station. He was seriously wounded in the chest and died just as we reached the first aid station. This occurred on October 7th, 1918, at Chatel Chehery, France.",
+      title:"Châtel-Chéhéry, and a sergeant hit",
+      body:"At 05:30 the regiment attacked west with the 3rd Battalion leading, then the 2nd, then the 1st. The Germans did not hold the village but swept it from the two hills, and Company L was in the leading battalion. Somewhere in the ground between the river and the village, Sergeant Alexander Bryant — three weeks in the company — was hit in the chest. Sergeant Leslie Walker and another man picked him up and started back.",
+      quote:"I helped carry Sgt. Alexander Bryant back to the first aid station. He was seriously wounded in the chest…",
+      cite:"Sgt Leslie Walker, Co. L, 110th Infantry",
+      shielded:{
+        title:"Châtel-Chéhéry",
+        body:"At 05:30 the regiment attacked west with the 3rd Battalion leading, then the 2nd, then the 1st. The Germans did not hold the village but swept it from the two hills, and Company L was in the leading battalion.",
+        quote:"Regiment attacked at 5:30 A.M. in order, 3rd Battalion, 2nd Battalion, 1st Battalion… Regiment occupied Chatel Chehery, France. Sharp fighting but our casualties light.",
+        cite:"110th Infantry abbreviated war diary" } },
+
+    /* The second phase of 7 October exists only because of how the day ended, so it
+       is marked reveal:true and is absent from the timeline entirely until the reader
+       has cleared. There is no shielded version - there would be nothing in it. */
+    { id:"oct7b", tab:"Aid station", cas:"—", eyebrow:"7 October 1918 · after the attack",
+      reveal:true, showBurials:true,
+      short:"Carried east; he died as they reached it.",
+      focus:{ at:"grave8", span:1500 },
+      title:"The carry back",
+      body:"They carried him back east, across the Aire the battalion had crossed in the dark that morning. He died as they reached the first aid station. Where that station stood is not recorded anywhere in the account — the only fixed point is the field grave, plotted at Ferme des Granges by a Graves Registration survey party fourteen months later, and the route drawn here is conjecture between the two.",
+      quote:"I helped carry Sgt. Alexander Bryant back to the first aid station. He was seriously wounded in the chest and died just as we reached the first aid station. This occurred on October 7th, 1918, at Chatel Chehery, France. I have no knowledge of when or where he was buried.",
       cite:"Sgt Leslie Walker, Co. L, 110th Infantry" },
 
     { id:"oct8", tab:"8 Oct", cas:"16 killed · 69 wounded", eyebrow:"8 October 1918",
@@ -182,17 +218,23 @@ window.KA_CROSSING = {
       cite:"110th Infantry abbreviated war diary" },
 
     { id:"oct9", tab:"9 Oct", cas:"7 killed · 4 wounded", eyebrow:"9 October 1918",
-      short:"Relieved at 05:30; a field grave at Ferme des Granges.", focus:{ at:"grave8", span:900 },
+      short:"Relieved at 05:30; the regiment marched out.", focus:{ at:"grave8", span:900 },
       title:"Relieved, and a grave at Ferme des Granges",
       body:"The 82nd Division completed the relief at 05:30 and the regiment marched out by battalions. The field grave was recorded at Ferme des Granges — ground that on 7 October lay inside the 82nd Division's sector, not his own regiment's.",
       quote:"Relief by the 82nd U.S. Division completed at 5:30 A.M. Regiment marched by battalions via Montblainville, France, to Camp de Bouzon.",
-      cite:"110th Infantry abbreviated war diary" }
+      cite:"110th Infantry abbreviated war diary",
+      shielded:{
+        title:"Relieved",
+        focus:{ at:"chatel", span:1400 },
+        body:"The 82nd Division completed the relief at 05:30 and the regiment marched out by battalions, back through Montblainville to Camp de Bouzon and into Corps reserve. Fourteen days of fighting had cost it nine officers and a hundred and four men killed." } }
   ],
 
   caveats: [
     ["La Forge","measured, not inferred. The farm point and the road that becomes the division boundary were read off the 1918 sheet and the IGN laser survey: the road crosses the farm’s building axis — buildings stand on both sides, on a roughly 010–190 bearing — at 49.28390 / 4.96654, and bends west-south-west immediately west of them to cross the Aire at 49.28331 / 4.96483. An earlier reconstruction from the 328th Infantry’s stated distances put the farm 178 m too far north, which pushed the 5–6 October line onto the wrong side of the road."],
     ["Côte 244","approximate. Côte 223 is confirmed; 244 is placed west-south-west of the village from the 109th Infantry's description of the Bois de Châtel lying south-west of it. The 1918 sheet also labels a Côte 243 nearby, which may or may not be the same feature."],
     ["The division boundary","drawn as a band, not a line, and deliberately so. The 328th's sector ran \"south by Ferme des Granges and La Forge and Chatel Chehery <em>inclusive</em>\", while the 110th was assigned \"that portion of the town of Chatel-Chehery\" lying between the two hills. Both divisions had a claim on the village."],
+    ["The carry back","is drawn from the estimated wounding ground east to the burial plot, and every part of it is inference. Sgt Walker says only that he helped carry him back to the first aid station and that he died as they reached it. Where the station stood is not recorded. It is drawn to the plot at Ferme des Granges because that is the one fixed point there is, and because men who died at an aid post were commonly buried beside it — which is reasoning, not evidence."],
+    ["The wounding position","is the one thing on this map that no document places. The records say only that he was hit during the advance and carried back to the aid station. The circle spans the ground between the Aire and the midpoint of La Forge and Châtel-Chéhéry, is drawn on the conjectural grade, and carries no claim ID — there is nothing to cite."],
     ["The 5–6 October line","runs about 100 m south of the road that became the division boundary on the 7th — because those really are nearly the same line. The 28th held to just south of La Forge Farm, and when the 82nd took the sector over the boundary was put along much the same ground. Both are shown as bands rather than lines so the map does not claim to separate them."],
     ["The crossing reach","the honest answer is a stretch of river, not a point. \"At La Forge\" (war diary) and \"immediately south of La Forge\" (regimental narrative) bound it; the band is what those two statements jointly allow."],
     ["The Aire's course","is the modern channel, from OpenStreetMap. The 1918 bed may differ, and a relict channel is among the things the laser survey could show."],

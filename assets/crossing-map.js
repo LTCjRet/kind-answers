@@ -34,7 +34,11 @@
   var BASE = JSON.parse(JSON.stringify(D.anchors));
   var A = JSON.parse(JSON.stringify(D.anchors));
   var cur = "oct7", drag = null;
-  var layers = { route:1, line:1, boundary:1, crossing:1, marks:1, places:1, grid:1 };
+  var REVEALED = window.KA_REVEAL_ON ? !!window.KA_REVEALED : true;
+  /* No reveal.js on the page means the site withholds nothing (Three Sergeants
+     tells the outcome from its index), so default to showing everything. Where
+     the module IS present, it owns the answer. */
+  var layers = { route:1, line:1, boundary:1, crossing:1, wounding:1, marks:1, places:1, grid:1 };
 
   /* ---------- helpers ---------- */
   function el(n, at) { var e = document.createElementNS(NS, n); for (var k in at) e.setAttribute(k, at[k]); return e; }
@@ -100,7 +104,20 @@
 
     D.features.forEach(function (f) {
       if (f.days.indexOf(cur) < 0 || !layers[f.layer]) { return; }
-      var g = GRADE[f.grade], d = pathOf(f.pts);
+      var g = GRADE[f.grade];
+      if (f.type === "zone") {
+        var ctr = resolve(f.centre);
+        svg.appendChild(el("circle", {cx:X(ctr[1]), cy:Y(ctr[0]), r:f.radius,
+          fill:C(f.color), "fill-opacity":.13, stroke:C(f.color), "stroke-width":7,
+          "stroke-dasharray":g.dash, opacity:.9}));
+        if (REVEALED && f.label) {
+          var zt = el("text", {x:X(ctr[1]), y:Y(ctr[0]) - f.radius - 60, "text-anchor":"middle",
+            "font-size":96, "font-style":"italic", fill:C(f.color)});
+          zt.textContent = "wounded, about here"; svg.appendChild(zt);
+        }
+        return;
+      }
+      var d = pathOf(f.pts);
       if (f.type === "band") {
         svg.appendChild(el("path", {d:d, fill:"none", stroke:C(f.color), "stroke-width":f.width,
           opacity:.28, "stroke-linecap":"round", "stroke-linejoin":"round"}));
@@ -116,7 +133,7 @@
 
     if (layers.places) { Object.keys(A).forEach(function (k) {
       var a = A[k];
-      if (a.kind === "grave" && cur !== "oct9") { return; }
+      if (a.kind === "grave" && (cur !== "oct9" || !REVEALED)) { return; }
       var x = X(a.lon), y = Y(a.lat);
       if (a.inferred && FIT) {
         svg.appendChild(el("circle", {cx:x, cy:y, r:a.inferred, fill:C("gold"), opacity:.10,
@@ -146,6 +163,7 @@
 
     if (layers.marks) { D.marks.forEach(function (m) {
       if (m.days.indexOf(cur) < 0) { return; }
+      if (m.reveal && !REVEALED) { return; }
       var a = A[m.at]; if (!a) { return; }
       var ax = X(a.lon), ay = Y(a.lat);
       var x = X(a.lon + (m.dlon||0)), y = Y(a.lat + (m.dlat||0));
@@ -187,11 +205,13 @@
   function setDay(id) {
     cur = id;
     var d = D.days.filter(function (x) { return x.id === id; })[0];
+    // A shielded variant is the same day told without its outcome.
+    var v = (!REVEALED && d.shielded) ? d.shielded : {};
     if ($("ka-eyebrow")) { $("ka-eyebrow").textContent = d.eyebrow; }
-    if ($("ka-title"))   { $("ka-title").textContent = d.title; }
+    if ($("ka-title"))   { $("ka-title").textContent = v.title || d.title; }
     if ($("ka-body"))    {
-      $("ka-body").innerHTML = "<p>" + d.body + "</p><blockquote>" + d.quote +
-        "<cite>" + d.cite + "</cite></blockquote>";
+      $("ka-body").innerHTML = "<p>" + (v.body || d.body) + "</p><blockquote>" +
+        (v.quote || d.quote) + "<cite>" + (v.cite || d.cite) + "</cite></blockquote>";
     }
     Array.prototype.forEach.call(document.querySelectorAll("#ka-timeline button"), function (b) {
       b.setAttribute("aria-current", b.getAttribute("data-day") === id ? "true" : "false");
@@ -199,9 +219,16 @@
     render();
   }
 
+  // Days marked reveal:true are not in the timeline at all until the reader has
+  // cleared - a greyed-out step labelled "Aid station" would announce itself.
+  function visibleDays() {
+    return D.days.filter(function (d) { return !(d.reveal && !REVEALED); });
+  }
+
   function buildTimeline() {
     var ol = $("ka-timeline"); if (!ol) { return; }
-    D.days.forEach(function (d) {
+    while (ol.firstChild) { ol.removeChild(ol.firstChild); }
+    visibleDays().forEach(function (d) {
       var li = document.createElement("li"), b = document.createElement("button");
       b.type = "button"; b.setAttribute("data-day", d.id);
       b.innerHTML = d.tab + '<span class="cas">' + d.cas + "</span>";
@@ -302,7 +329,8 @@
     var host = $("ka-layers");
     if (host) {
       [["route","Movement traces"],["line","Front lines"],["boundary","Division boundary"],
-       ["crossing","Crossing reach"],["marks","Unit markers"],["places","Place names"],
+       ["crossing","Crossing reach"],["wounding","Wounding estimate"],
+       ["marks","Unit markers"],["places","Place names"],
        ["grid","Nord de Guerre grid"]].forEach(function (r) {
         var l = document.createElement("label"); l.className = "ck";
         var c = document.createElement("input");
@@ -319,10 +347,18 @@
     var svg = $("ka-plan");
     if (svg) { svg.setAttribute("viewBox", "-300 -300 " + (W+600) + " " + (H+600)); }
     buildTimeline(); buildLegend(); buildCaveats();
+    if (window.KA_REVEAL_ON) {
+      window.KA_REVEAL_ON(function (val) {
+        REVEALED = val;
+        buildTimeline();
+        var ok = visibleDays().some(function (d) { return d.id === cur; });
+        setDay(ok ? cur : "oct7");
+      });
+    }
     if (FIT) { initFit(); }
     document.addEventListener("keydown", function (e) {
       if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) { return; }
-      var ids = D.days.map(function (d) { return d.id; }), i = ids.indexOf(cur);
+      var ids = visibleDays().map(function (d) { return d.id; }), i = ids.indexOf(cur);
       if (e.key === "ArrowRight" && i < ids.length-1) { setDay(ids[i+1]); e.preventDefault(); }
       if (e.key === "ArrowLeft"  && i > 0)            { setDay(ids[i-1]); e.preventDefault(); }
     });

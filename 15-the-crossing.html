@@ -41,6 +41,29 @@
 .ka-key dt{height:0;border-top-width:2.5px}
 .ka-key dd{margin:0;font-size:14px;line-height:1.4;color:var(--ink-soft)}
 .ka-caveats li{margin-bottom:9px}
+
+/* reading position - the gate itself is built by assets/reveal.js */
+.ka-gate{position:fixed;inset:0;z-index:900;display:flex;align-items:center;
+  justify-content:center;background:rgba(28,24,21,.62);padding:20px}
+.ka-gate[hidden]{display:none}
+.ka-gate-box{max-width:440px;background:var(--paper);border-top:3px solid var(--accent);
+  padding:24px 26px;box-shadow:var(--shadow)}
+.ka-gate-box h3{margin:0 0 10px;font-size:20px;font-weight:400}
+.ka-gate-box p{margin:0 0 14px;font-size:16px}
+.ka-gate-box button{font:15px Georgia,serif;padding:8px 16px;cursor:pointer;
+  background:var(--accent);color:#fff;border:0;border-radius:3px}
+.ka-gate-box .ka-reveal-choices{display:flex;flex-direction:column;gap:9px;margin:0 0 18px}
+.ka-gate-box .ka-reveal-choices label{display:flex;gap:9px;align-items:flex-start;
+  cursor:pointer;font-size:16px}
+.ka-gate-box .ka-reveal-choices input{margin:5px 0 0;accent-color:var(--accent)}
+.ka-gate-box .ka-reveal-note{margin:14px 0 0;font-size:13.5px;line-height:1.45;
+  color:#7a7065;font-style:italic}
+.ka-reading{margin-top:26px;border-top:1px solid var(--rule);padding-top:14px}
+.ka-reading h3{font:600 11.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent-2);margin:0 0 12px}
+.ka-reading label{display:flex;gap:8px;align-items:center;font-size:14.5px;
+  color:var(--ink-soft);padding:3px 0;cursor:pointer}
+.ka-reading input{accent-color:var(--accent);margin:0}
 .ka-caveats b{color:var(--ink)}
 </style>
 </head>
@@ -60,6 +83,7 @@
 <a href="9-1919-1973.html">1919&ndash;1973</a>
 <a href="10-kokos.html">Kokos</a>
 <a href="11-fireplace.html">The Fireplace</a>
+<a href="14-the-ground.html" class="on">The Ground</a>
 <a href="12-reference.html">Reference</a>
 <a href="13-sources.html">Sources</a>
 </nav></div></div>
@@ -98,6 +122,11 @@ an area rather than a line &mdash; the crossing, the division boundary &mdash; i
     <p class="ey" id="ka-eyebrow">7 October 1918</p>
     <h2 id="ka-title">Ch&acirc;tel-Ch&eacute;h&eacute;ry</h2>
     <div id="ka-body"></div>
+    <div class="ka-reading">
+      <h3>Reading position</h3>
+      <label><input type="radio" name="ka-reveal" value="no" checked> Keep 7 October back</label>
+      <label><input type="radio" name="ka-reveal" value="yes"> I have read October</label>
+    </div>
     <div class="ka-key">
       <h3>How the lines are drawn</h3>
       <dl id="ka-legend-evidence"></dl>
@@ -136,6 +165,7 @@ where two documents disagree.</p>
 
 <footer class="site"><div class="wrap">Kind Answers &middot; <a href="13-sources.html">Sources and records</a> &middot; <span style="font-size:13px">Narrative and analysis &copy; 2026 John Gladin, licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>; U.S. federal records are public domain.</span></div></footer>
 
+<script src="assets/reveal.js"></script>
 <script src="assets/crossing-data.js"></script>
 <script src="assets/crossing-map.js"></script>
 </body>

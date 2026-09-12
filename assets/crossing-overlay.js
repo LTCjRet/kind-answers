@@ -18,11 +18,12 @@
    The day radios start on 3 October, not 7. A reader who has not reached the
    October chapter has to click forward to meet the outcome, the same courtesy
    the burial gate extends. */
-window.KA_CROSSING_OVERLAY = function (map, L) {
+window.KA_CROSSING_OVERLAY = function (map, L, opts) {
   "use strict";
 
   var D = window.KA_CROSSING;
   if (!D || !map || !L) { return; }
+  opts = opts || {};
 
   var COL = { us:"#2f4f63", flank:"#5c6b4a", enemy:"#7c2d2d", gold:"#a8853f", ink:"#1c1815" };
   var DASH = { stated:null, inferred:"14 9", conjectural:"2 7" };
@@ -38,6 +39,10 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
   var corridors = [];          // band polylines, re-weighted on zoom
   var cur = D.days[0].id;
   var on = false;
+  var REVEALED = window.KA_REVEAL_ON ? !!window.KA_REVEALED : true;
+  /* No reveal.js on the page means the site withholds nothing (Three Sergeants
+     tells the outcome from its index), so default to showing everything. Where
+     the module IS present, it owns the answer. */
 
   /* A corridor drawn in metres has to be re-weighted whenever the scale
      changes, or the uncertainty it represents silently grows and shrinks. */
@@ -57,6 +62,15 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
 
     D.features.forEach(function (f) {
       if (f.days.indexOf(cur) < 0) { return; }
+      if (f.type === "zone") {
+        var ctr = resolve(f.centre);
+        var circ = L.circle(ctr, { radius:f.radius, color:COL[f.color], weight:2,
+          opacity:.9, dashArray:DASH[f.grade], fillColor:COL[f.color], fillOpacity:.13,
+          interactive: !!(REVEALED && f.label) });
+        if (REVEALED && f.label) { circ.bindTooltip(f.label, { sticky:true }); }
+        circ.addTo(group);
+        return;
+      }
       var pts = f.pts.map(resolve);
       if (f.type === "band") {
         var corridor = L.polyline(pts, {
@@ -79,6 +93,7 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
 
     D.marks.forEach(function (m) {
       if (m.days.indexOf(cur) < 0) { return; }
+      if (m.reveal && !REVEALED) { return; }
       var a = A[m.at]; if (!a) { return; }
       // The burial locations are the gated layer's business, not this one's.
       if (m.kind === "grave") { return; }
@@ -95,9 +110,9 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
       }).addTo(group);
     });
 
-    var day = byId(cur);
-    if (day && day.focus && A[day.focus.at]) {
-      var f = A[day.focus.at];
+    var day = byId(cur), fo = focusOf(day);
+    if (day && fo && A[fo.at]) {
+      var f = A[fo.at];
       L.marker([f.lat, f.lon], {
         icon: L.divIcon({
           className: "",
@@ -105,12 +120,17 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
           iconSize: [0, 0], iconAnchor: [0, 0]
         }),
         title: day.tab + " — " + f.name, alt: day.tab + " — " + f.name, keyboard: true
-      }).bindPopup("<b>" + day.tab + " &mdash; " + day.title + "</b><br>" + day.short +
+      }).bindPopup("<b>" + day.tab + " &mdash; " + (view(day).title || day.title) + "</b><br>" +
+                   (view(day).short || day.short) +
                    '<span class="ka-meta">Pin at ' + f.name +
                    (f.inferred ? " &middot; position inferred, &plusmn;" + f.inferred + " m" : "") +
                    "</span>").addTo(group);
     }
   }
+
+  // Which day-record to read: the shielded one stands in until the reader clears.
+  function view(day) { return (!REVEALED && day && day.shielded) ? day.shielded : {}; }
+  function focusOf(day) { return view(day).focus || (day && day.focus); }
 
   function byId(id) {
     for (var i = 0; i < D.days.length; i++) { if (D.days[i].id === id) { return D.days[i]; } }
@@ -118,11 +138,11 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
   }
 
   function goThere() {
-    var day = byId(cur);
-    if (!day || !day.focus) { return; }
-    var a = A[day.focus.at]; if (!a) { return; }
-    var dLat = day.focus.span / 111132;
-    var dLon = day.focus.span / (111320 * Math.cos(a.lat * Math.PI / 180));
+    var day = byId(cur), fo = focusOf(day);
+    if (!day || !fo) { return; }
+    var a = A[fo.at]; if (!a) { return; }
+    var dLat = fo.span / 111132;
+    var dLon = fo.span / (111320 * Math.cos(a.lat * Math.PI / 180));
     map.flyToBounds(L.latLngBounds([a.lat - dLat, a.lon - dLon], [a.lat + dLat, a.lon + dLon]),
                     { duration: 0.8 });
   }
@@ -130,18 +150,24 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
   function setDay(id) {
     cur = id;
     var day = byId(id); if (!day) { return; }
+    // A shielded variant is the same day told without its outcome.
+    var v = view(day);
     var short = document.getElementById("ka-cross-short");
-    if (short) { short.textContent = day.short; }
+    if (short) { short.textContent = v.short || day.short; }
     var body = document.getElementById("ka-cross-body");
     if (body) {
       body.innerHTML =
         '<p class="ka-cross-ey">' + day.eyebrow + "</p>" +
-        "<h3>" + day.title + "</h3>" +
-        "<p>" + day.body + "</p>" +
-        "<blockquote>" + day.quote + "<cite>" + day.cite + "</cite></blockquote>" +
+        "<h3>" + (v.title || day.title) + "</h3>" +
+        "<p>" + (v.body || day.body) + "</p>" +
+        "<blockquote>" + (v.quote || day.quote) +
+          "<cite>" + (v.cite || day.cite) + "</cite></blockquote>" +
         '<p class="ka-cross-cas">Regimental casualties that day: ' + day.cas + ".</p>";
     }
     if (on) { draw(); }
+    // The page decides what a day means beyond the map - The Ground uses this to
+    // bring up the plat and the burial markers when the reader reaches them.
+    if (opts.onDay) { try { opts.onDay(day, REVEALED); } catch (e) { } }
   }
 
   /* ---------- wiring ---------- */
@@ -164,6 +190,16 @@ window.KA_CROSSING_OVERLAY = function (map, L) {
   }
   if (box) { box.addEventListener("change", function () { setOn(this.checked); }); }
 
+  if (window.KA_REVEAL_ON) {
+    window.KA_REVEAL_ON(function (val) {
+      REVEALED = val;
+      var d = byId(cur);
+      if (!val && d && d.reveal) { cur = "oct7"; }   // the step they were on is gone
+      var r = document.querySelector('input[name="ka-day"][value="' + cur + '"]');
+      if (r) { r.checked = true; }
+      setDay(cur);
+    });
+  }
   setDay(cur);
   setOn(box ? box.checked : false);
 };
